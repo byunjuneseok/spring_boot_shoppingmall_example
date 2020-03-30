@@ -6,21 +6,28 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
 
+@Entity
 @Data
 @Setter(AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "id")
 public class ProductItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
     private ProductItemSku sku;
     private String name;
     private BigDecimal price;
     private boolean base;
 
-    private ProductItem() {}
+    protected ProductItem() {}
 
     private ProductItem(ProductItemSku sku, String name, BigDecimal price, boolean base) {
         setId(UUID.randomUUID());
